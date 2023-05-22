@@ -7,17 +7,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="../styles/login.css">
   <script type="text/javascript" src="../src/login.js"></script>
+  
   <title>Login</title>
 </head>
 
 <body>
   <h1>Login</h1>
-  <form id="loginForm">
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="password" id="pass" placeholder="Contraseña" required>
-    <button type="submit" onclick="send()">Enviar</button>
+  
+  <form onsubmit="return false;">
+    <label for="email">Correo</label>
+    <input type="text" id="email">
+    <label for="pass">Contraseña</label>
+    <input type="password" id="pass">
+    <button type="submit" onclick="send()">Login</button>
+    <p id="resultado"></p>
   </form>
-
+  
 </body>
 
 </html>

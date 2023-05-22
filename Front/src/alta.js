@@ -1,7 +1,7 @@
 function getPatiens() {
-    var email = sessionStorage.getItem('mail');
+    var email = sessionStorage.getItem('email');
     var session = sessionStorage.getItem('session');
-    http.open("GET", "http://localhost:3000/?????/ServPatients?mail=" + email + "&session=" + session, true);
+    http.open("GET", "http://localhost:3000/?????/ServPatients?email=" + email + "&session=" + session, true);
 
     http.onreadystatechange = function () {
         if (http.readyState === XMLHttpRequest.DONE) {
@@ -19,11 +19,11 @@ function getPatiens() {
 }
 
 function getMedicines() {
-    var mail = sessionStorage.getItem('mail');
+    var email = sessionStorage.getItem('email');
     var session = sessionStorage.getItem('session');
 
     var http = new XMLHttpRequest();
-    http.open("GET", "http://localhost:3000/??????/ServMedicines?mail=" + mail + "&session=" + session, true);
+    http.open("GET", "http://localhost:3000/??????/ServMedicines?email=" + email + "&session=" + session, true);
 
     http.onreadystatechange = function () {
         if (http.readyState === XMLHttpRequest.DONE) {
@@ -40,7 +40,7 @@ function getMedicines() {
 }
 
 function enviar() {
-    var mail = sessionStorage.getItem('mail');
+    var email = sessionStorage.getItem('email');
     var session = sessionStorage.getItem('session');
 
     var idXip = "...;"; // Valor de la idXip
@@ -49,7 +49,7 @@ function enviar() {
     var dateLimit = "...;"; // Valor de la dateLimit
 
     var data = {
-        mail: mail,
+        email: email,
         session: session,
         idXip: idXip,
         mailP: mailP,

@@ -6,10 +6,9 @@ function send() {
   let email = document.getElementById("email").value;
   let pass = document.getElementById("pass").value;
   // Generar el hash de la contraseña
-  const hashedPassword = bcrypt.hashSync(pass, 9);
+  //const hashedPassword = bcrypt.hashSync(pass, 9);
 
-  http.open("POST", "http://localhost:3000/DAMTomcat/Login", true);
-  http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  http.open("GET", "http://localhost:3000/Back-Farmacia/Login?email=" + email + "&pass=" + pass, true); 
 
 
   http.onreadystatechange = function () {
@@ -40,5 +39,5 @@ function send() {
     }
   };
 
-  http.send("user=" + user + "&pass=" + pass);
+  http.send();
 }

@@ -1,4 +1,4 @@
-
+	
 public class Medicine {
 	
 	int id;
