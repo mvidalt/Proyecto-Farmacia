@@ -1,6 +1,6 @@
 function send() {
   //npm install bcryptjs
-  const bcrypt = require('bcryptjs');
+  //const bcrypt = require('bcryptjs');
   let http = new XMLHttpRequest();
 
   let email = document.getElementById("email").value;
