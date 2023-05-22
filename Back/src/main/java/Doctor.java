@@ -19,9 +19,7 @@ public class Doctor extends Person {
 	}
 
 	public void login(String mail, String pass) {
-		// Si mail y pass son iguales
-		// envia mail y pass a la BBDD con el metodo load()
-		// Tambien enviar el lastLog y session a la BBDD
+		
 	}
 
 	public boolean isLogged(String mail, String session) {
