@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../styles/alta.css">
+    <script type="text/javascript" src="../src/gestio.js"></script>
+    <title>Document</title>
+</head>
+
+<body onload="getPatiens(); getMedicines()">
+    <h1>Alta</h1>
+    <form id="altaForm">
+        <input type="text" id="xipIdInput" placeholder="ID Físico del Xip" required>
+        <select id="patientsSelect" required>
+            <option value="" disabled selected>Seleccione un paciente</option>
+        </select>
+        <select id="medicinesSelect" required>
+            <option value="" disabled selected>Seleccione un medicamento</option>
+        </select>
+        <input type="date" id="dateInput" required>
+        <button type="submit">Enviar</button>
+    </form>
+    <button">Avanzar a Gestio</button>
+
+        <script src="script.js"></script>
+</body>
+
+</html>
