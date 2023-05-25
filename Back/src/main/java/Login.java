@@ -33,19 +33,12 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Datos de conexión a la base de datos
-
-		String url = "jdbc:mysql://localhost:3306/farmacia";
-        String username = "root";
-        String password = "";
         
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		String email = request.getParameter("email");
 		String pass = request.getParameter("pass");
 		System.out.println("Usuario: "+email);
 		System.out.println("Pass: "+pass);
-		ConnectionDB db = new ConnectionDB();
-		db.connectar();
-		db.close();
 		Doctor d1 = new Doctor();
 		d1.login(email, pass);
 		

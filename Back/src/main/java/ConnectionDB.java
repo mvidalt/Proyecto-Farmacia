@@ -60,5 +60,13 @@ public class ConnectionDB {
 	public void setConn(Connection conn) {this.conn=conn;}
 	public void setSt(Statement st) {this.st=st;}
 
+	public Connection getConn() {
+		return conn;
+	}
+
+	public Statement getSt() {
+		return st;
+	}
+
 }
 	
