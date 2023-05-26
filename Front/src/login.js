@@ -25,7 +25,7 @@ function send() {
 
           // Almacenar el código de sesión en sessionStorage
           sessionStorage.setItem('session', sessionCode);
-          sessionStorage.setItem('mail', email);
+          sessionStorage.setItem('email', email);
           
 
           // Avanzar a la página "Gestio"

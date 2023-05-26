@@ -12,6 +12,11 @@ public class main {
 	    System.out.println("Medicina: " + xip.getMedicine().getName());
 	    System.out.println("Paciente: " + xip.getPatient().getName());
 	    System.out.println("Fecha de finalización: " + xip.getDate());
+	    
+	    Doctor doctor = new Doctor();
+	    doctor.load("miguel11nemo@gmail.com");
+	    doctor.loadReleaseList();
+	    
 	}
 
 

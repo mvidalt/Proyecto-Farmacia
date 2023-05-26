@@ -17,16 +17,21 @@ public class Doctor extends Person {
 	ConnectionDB db = new ConnectionDB();
 
 	public void setName(String name) {
-		this.name = name; 
+		this.name = name;
 	}
-	
-	public void setMail (String mail) {
+
+	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	
+
+	public String getMail() {
+		return mail;
+	}
+
 	public String getPass() {
 		return pass;
 	}
+	
 
 	public void setPass(String pass) {
 		this.pass = pass;
@@ -59,59 +64,57 @@ public class Doctor extends Person {
 	Doctor() {
 	}
 
-	Doctor(String name, String mail,String pass, LocalDate lastLog, String session) {
+	Doctor(String name, String mail, String pass, LocalDate lastLog, String session) {
 		super(name, mail);
 		this.pass = pass;
 		this.lastLog = lastLog;
 		this.session = session;
 	}
 
-
 	public void login(String mail, String pass) {
-	    try {
-	        db.connectar();
-	        // Verificar si el correo electrónico y la contraseña son correctos
-	        String query = "SELECT * FROM doctor WHERE mail = ? AND pass = ?";
-	        PreparedStatement statement = db.getConn().prepareStatement(query);
-	        statement.setString(1, mail);
-	        statement.setString(2, pass);
-	        ResultSet resultSet = statement.executeQuery();
+		try {
+			db.connectar();
+			// Verificar si el correo electrónico y la contraseña son correctos
+			String query = "SELECT * FROM doctor WHERE mail = ? AND pass = ?";
+			PreparedStatement statement = db.getConn().prepareStatement(query);
+			statement.setString(1, mail);
+			statement.setString(2, pass);
+			ResultSet resultSet = statement.executeQuery();
 
-	        if (resultSet.next()) {
-	            System.out.println("Inicio de sesión exitoso.");
+			if (resultSet.next()) {
+				System.out.println("Inicio de sesión exitoso.");
 
-	            //Cargamos los datos al objeto
-	            load(mail);
-	            // Generar un código de sesión de 10 dígitos aleatorios
-	            Random random = new Random();
-	            String sessionNumber = "";
-	            for (int i = 0; i < 9; i++) {
-	                int digit = random.nextInt(10);
-	                sessionNumber += digit;
-	            }
+				// Cargamos los datos al objeto
+				load(mail);
+				// Generar un código de sesión de 10 dígitos aleatorios
+				Random random = new Random();
+				String sessionNumber = "";
+				for (int i = 0; i < 9; i++) {
+					int digit = random.nextInt(10);
+					sessionNumber += digit;
+				}
 
-	            try {
-	                String updateQuery = "UPDATE doctor SET session = ?, last_log = ? WHERE mail = ?";
-	                PreparedStatement statement2 = db.getConn().prepareStatement(updateQuery);
-	                statement2.setInt(1, Integer.parseInt(sessionNumber)); // Establecer el código de sesión aleatorio
-	                statement2.setObject(2, LocalDate.now());
-	                statement2.setString(3, mail);
-	                statement2.executeUpdate();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	            session = sessionNumber;
+				try {
+					String updateQuery = "UPDATE doctor SET session = ?, last_log = ? WHERE mail = ?";
+					PreparedStatement statement2 = db.getConn().prepareStatement(updateQuery);
+					statement2.setInt(1, Integer.parseInt(sessionNumber)); // Establecer el código de sesión aleatorio
+					statement2.setObject(2, LocalDate.now());
+					statement2.setString(3, mail);
+					statement2.executeUpdate();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				session = sessionNumber;
 
-	        } else {
-	            // El correo electrónico y/o la contraseña son incorrectos
-	            session = "";
-	            System.out.println("Credenciales inválidas.");
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+			} else {
+				// El correo electrónico y/o la contraseña son incorrectos
+				session = "";
+				System.out.println("Credenciales inválidas.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-
 
 	public boolean isLogged(String mail, String session) {
 		// Comprueba si el mail y la session son correctos
@@ -128,15 +131,15 @@ public class Doctor extends Person {
 			PreparedStatement statement = db.getConn().prepareStatement(query);
 			statement.setString(1, id);
 			ResultSet resultSet = statement.executeQuery();
-			
-			 while (resultSet.next()) {
-		            // Cargar los datos del doctor en el objeto
-	                setName(resultSet.getString("name"));
-	                setMail(resultSet.getString("mail"));
-	                setPass(resultSet.getString("pass"));
-	                setLastLog(resultSet.getDate("last_log").toLocalDate());
-	                setSession(resultSet.getString("session"));
-			 }
+
+			while (resultSet.next()) {
+				// Cargar los datos del doctor en el objeto
+				setName(resultSet.getString("name"));
+				setMail(resultSet.getString("mail"));
+				setPass(resultSet.getString("pass"));
+				setLastLog(resultSet.getDate("last_log").toLocalDate());
+				setSession(resultSet.getString("session"));
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -144,8 +147,28 @@ public class Doctor extends Person {
 	}
 
 	public void loadReleaseList() {
-		// Carga todas las fichas de la base de datos vinculadas
-		// al doctor en el array releaseList del doctor
+		try {
+			db.connectar();
+			releaseList = new ArrayList<>();
+			String query = "SELECT * FROM xip WHERE doctor_mail = ?";
+			PreparedStatement statement = db.getConn().prepareStatement(query);
+			statement.setString(1,getMail());
+			ResultSet resultSet = statement.executeQuery();
+			
+			while (resultSet.next()) {
+				int id1 = resultSet.getInt("id");
+				Xip xip = new Xip();
+				xip.load(id1);
+				releaseList.add(xip);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		for (Xip i : releaseList) {
+			System.out.print(i.getId());
+		}
 	}
 
 	public String getTable() {
