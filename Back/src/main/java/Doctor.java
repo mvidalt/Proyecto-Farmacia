@@ -80,10 +80,12 @@ public class Doctor extends Person {
 	        if (resultSet.next()) {
 	            System.out.println("Inicio de sesión exitoso.");
 
+	            //Cargamos los datos al objeto
+	            load(mail);
 	            // Generar un código de sesión de 10 dígitos aleatorios
 	            Random random = new Random();
 	            String sessionNumber = "";
-	            for (int i = 0; i < 10; i++) {
+	            for (int i = 0; i < 9; i++) {
 	                int digit = random.nextInt(10);
 	                sessionNumber += digit;
 	            }
@@ -127,12 +129,12 @@ public class Doctor extends Person {
 			statement.setString(1, id);
 			ResultSet resultSet = statement.executeQuery();
 			
-			 if (resultSet.next()) {
+			 while (resultSet.next()) {
 		            // Cargar los datos del doctor en el objeto
 	                setName(resultSet.getString("name"));
 	                setMail(resultSet.getString("mail"));
 	                setPass(resultSet.getString("pass"));
-	                setLastLog(resultSet.getDate("lastLog").toLocalDate());
+	                setLastLog(resultSet.getDate("last_log").toLocalDate());
 	                setSession(resultSet.getString("session"));
 			 }
 
