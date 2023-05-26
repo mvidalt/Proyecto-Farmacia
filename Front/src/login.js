@@ -17,7 +17,7 @@ function send() {
         // Obtener la respuesta del backend
         var response = http.responseText;
 
-        if (response === null) {
+        if (response === "") {
           // El login no ha sido correcto
           document.getElementById("resultado").innerHTML = 'Login erroneo';
         } else {   // El login ha sido exitoso, obtener el código de sesión
@@ -26,6 +26,7 @@ function send() {
           // Almacenar el código de sesión en sessionStorage
           sessionStorage.setItem('session', sessionCode);
           sessionStorage.setItem('mail', email);
+          
 
           // Avanzar a la página "Gestio"
           window.location.href = 'Gestio.html';

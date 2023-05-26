@@ -31,19 +31,18 @@ public class Login extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Datos de conexión a la base de datos
-        
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		String email = request.getParameter("email");
-		String pass = request.getParameter("pass");
-		System.out.println("Usuario: "+email);
-		System.out.println("Pass: "+pass);
-		Doctor d1 = new Doctor();
-		d1.login(email, pass);
-		
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String mail = request.getParameter("email");
+        String pass = request.getParameter("pass");
 
+        Doctor doctor = new Doctor();
+        doctor.login(mail, pass);
 
+        String session = doctor.getSession();
+
+        // Devolver el valor de session al frontend
+        response.setContentType("text/plain");
+        response.getWriter().write(session);
     }
 		
 		

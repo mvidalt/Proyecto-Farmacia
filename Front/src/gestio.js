@@ -9,7 +9,7 @@ function logOut() {
 function getTable() {
     var email = sessionStorage.getItem('email');
     var session = sessionStorage.getItem('session');
-
+    
     var http = new XMLHttpRequest();
     http.open("GET", "http://localhost:3000/DAMTomcat/ServXips?email=" + email + "&session=" + session, true);
     http.onreadystatechange = function () {
