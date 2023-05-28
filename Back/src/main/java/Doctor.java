@@ -117,11 +117,29 @@ public class Doctor extends Person {
 	}
 
 	public boolean isLogged(String mail, String session) {
-		// Comprueba si el mail y la session son correctos
-		// Si coincide devuelve true y carga los datos con login()
-		// Si no da false
-		return false;
+	    try {
+	        db.connectar();
+	        String query = "SELECT * FROM doctor WHERE mail = ? AND session = ?";
+	        PreparedStatement statement = db.getConn().prepareStatement(query);
+	        statement.setString(1, mail);
+	        statement.setString(2, session);
+	        ResultSet resultSet = statement.executeQuery();
+
+	        if (resultSet.next()) {
+	            // Sesión válida, los datos se han cargado correctamente
+	            return true;
+	        } else {
+	            // Sesión inválida, los datos no coinciden
+	            return false;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false; // En caso de error, se considera la sesión como inválida
+	    } finally {
+	        db.close();
+	    }
 	}
+
 
 	@Override
 	public void load(String id) {
@@ -172,9 +190,24 @@ public class Doctor extends Person {
 	}
 
 	public String getTable() {
-		// Devuelve una cadena de tabla HTML con
-		// todas las fichas activas asociadas al médico
-		return "";
+	    StringBuilder table = new StringBuilder();
+	    table.append("<table>");
+	    table.append("<tr><th>ID</th><th>Medicine</th><th>Patient</th><th>Date</th></tr>");
+
+	    for (Xip xip : releaseList) {
+	        if (xip.getDate().isAfter(LocalDate.now())) {
+	            table.append("<tr>");
+	            table.append("<td>").append(xip.getId()).append("</td>");
+	            table.append("<td>").append(xip.getMedicine().getName()).append("</td>");
+	            table.append("<td>").append(xip.getPatient().getName()).append("</td>");
+	            table.append("<td>").append(xip.getDate()).append("</td>");
+	            table.append("</tr>");
+	        }
+	    }
+
+	    table.append("</table>");
+	    return table.toString();
 	}
+
 
 }

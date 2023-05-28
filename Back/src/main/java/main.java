@@ -16,6 +16,7 @@ public class main {
 	    Doctor doctor = new Doctor();
 	    doctor.load("miguel11nemo@gmail.com");
 	    doctor.loadReleaseList();
+	    System.out.print(doctor.getTable());
 	    
 	}
 
