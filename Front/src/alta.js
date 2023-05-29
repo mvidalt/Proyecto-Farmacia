@@ -1,7 +1,8 @@
 function getPatiens() {
     var email = sessionStorage.getItem('email');
     var session = sessionStorage.getItem('session');
-    http.open("GET", "http://localhost:3000/Back-Farmacia/ServPatients?email=" + email + "&session=" + session, true);
+    var http = new XMLHttpRequest();
+    http.open("GET", "http://localhost:3000/Back/ServePatients?email=" + email + "&session=" + session, true);
 
     http.onreadystatechange = function () {
         if (http.readyState === XMLHttpRequest.DONE) {
@@ -23,7 +24,7 @@ function getMedicines() {
     var session = sessionStorage.getItem('session');
 
     var http = new XMLHttpRequest();
-    http.open("GET", "http://localhost:3000/Back-Farmacia/ServMedicines?email=" + email + "&session=" + session, true);
+    http.open("GET", "http://localhost:3000/Back/ServeMedicines?email=" + email + "&session=" + session, true);
 
     http.onreadystatechange = function () {
         if (http.readyState === XMLHttpRequest.DONE) {

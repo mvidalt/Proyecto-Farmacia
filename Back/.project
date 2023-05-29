@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Back-Farmacia</name>
+	<name>Back</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -30,7 +30,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1685368059757</id>
+			<id>1685394951441</id>
 			<name></name>
 			<type>30</type>
 			<matcher>

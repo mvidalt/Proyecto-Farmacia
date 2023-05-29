@@ -10,7 +10,7 @@ function getTable() {
     var email = sessionStorage.getItem('email');
     var session = sessionStorage.getItem('session');
     var http = new XMLHttpRequest();
-    http.open("GET", "http://localhost:3000/Back-Farmacia/ServeXips?email=" + email + "&session=" + session, true);
+    http.open("GET", "http://localhost:3000/Back/ServeXips?email=" + email + "&session=" + session, true);
     http.onreadystatechange = function () {
         if (http.readyState === XMLHttpRequest.DONE) {
             if (http.status === 200) {
