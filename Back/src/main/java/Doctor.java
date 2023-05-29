@@ -124,10 +124,12 @@ public class Doctor extends Person {
 	        statement.setString(1, mail);
 	        statement.setString(2, session);
 	        ResultSet resultSet = statement.executeQuery();
-
+	        System.out.print(session);
+        	System.out.print(mail);
 	        if (resultSet.next()) {
 	            // Sesión válida, los datos se han cargado correctamente
 	        	login(getMail(),getPass());
+
 	            return true;
 	        } else {
 	            // Sesión inválida, los datos no coinciden

@@ -21,11 +21,14 @@ public class ServeXips extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String mail = request.getParameter("mail");
+        String mail = request.getParameter("email");
         String session = request.getParameter("session");
+        System.out.println(session);
 
         Doctor doctor = new Doctor();
         boolean isLogged = doctor.isLogged(mail, session);
+
+        System.out.println(session);
 
         if (isLogged) {
             doctor.load(mail);

@@ -39,6 +39,7 @@ public class Login extends HttpServlet {
         doctor.login(mail, pass);
 
         String session = doctor.getSession();
+        System.out.println(session);
 
         // Devolver el valor de session al frontend
         response.setContentType("text/plain");
