@@ -6,11 +6,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Servlet implementation class Login
@@ -23,7 +18,6 @@ public class Login extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
     public Login() {
-    	
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,19 +39,13 @@ public class Login extends HttpServlet {
         response.setContentType("text/plain");
         response.getWriter().write(session);
     }
-		
-		
-		
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
-		response.setHeader("Access-Control-Allow-Origin", "*");
 	}
-	
-	
 
 }
