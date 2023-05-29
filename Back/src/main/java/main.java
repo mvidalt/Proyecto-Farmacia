@@ -1,24 +1,52 @@
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class main {
+	  public static void main(String[] args) {
+	        // Simulación de los parámetros de solicitud
+	        String mail = "example@mail.com";
+	        String session = "session123";
 
-	public static void main(String[] args) {
-	    Xip xip = new Xip();
-	    int xipId = 0; // ID del Xip que deseas cargar
+	        // Crear una instancia de ConnectionDB
+	        ConnectionDB db = new ConnectionDB();
 
-	    xip.load(xipId);
+	        // Simulación de la conexión a la base de datos
+	        try {
+	            db.connectar();
 
-	    System.out.println("Datos del Xip cargados:");
-	    System.out.println("ID: " + xip.getId());
-	    System.out.println("Medicina: " + xip.getMedicine().getName());
-	    System.out.println("Paciente: " + xip.getPatient().getName());
-	    System.out.println("Fecha de finalización: " + xip.getDate());
-	    
-	    Doctor doctor = new Doctor();
-	    doctor.load("miguel11nemo@gmail.com");
-	    doctor.loadReleaseList();
-	    System.out.print(doctor.getTable());
-	    
-	}
+	            // Simulación de la consulta a la base de datos
+	            String query = "SELECT * FROM medicine";
+	            ResultSet resultSet = db.getConn().createStatement().executeQuery(query);
 
+	            JSONArray jsonArray = new JSONArray();
+	            while (resultSet.next()) {
+	                Medicine medicine = new Medicine();
+	                medicine.load(resultSet.getInt("id"));
+	                JSONObject json = new JSONObject(medicine);
+	                jsonArray.put(json);
+	            }
 
+	            // Imprimir el JSONArray en la consola
+	            System.out.println(jsonArray.toString());
+
+	            // Cerrar la conexión a la base de datos
+	            db.close();
+
+	            // Aquí puedes realizar cualquier otra acción deseada con el JSONArray generado
+	            // por ejemplo, escribirlo en un archivo, enviarlo a través de una API, etc.
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
 }

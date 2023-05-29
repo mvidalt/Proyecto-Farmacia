@@ -127,6 +127,7 @@ public class Doctor extends Person {
 
 	        if (resultSet.next()) {
 	            // Sesión válida, los datos se han cargado correctamente
+	        	login(getMail(),getPass());
 	            return true;
 	        } else {
 	            // Sesión inválida, los datos no coinciden

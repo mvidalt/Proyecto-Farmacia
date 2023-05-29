@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
@@ -12,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Servlet implementation class ServeMedicines
@@ -30,24 +31,41 @@ public class ServeMedicines extends HttpServlet {
 
 		String mail = request.getParameter("mail");
 		String session = request.getParameter("session");
-		ArrayList<Medicine> Listmedicines;
-		Listmedicines = new ArrayList<>();
 		ConnectionDB db = new ConnectionDB();
 		Doctor doctor = new Doctor();
 		boolean Logged = doctor.isLogged(mail, session);
 		if (Logged) {
 			try {
 				db.connectar();
-				String query = "SELECT mail from medicine";
+
+				// Simulación de la consulta a la base de datos
+				String query = "SELECT * FROM medicine";
 				ResultSet resultSet = db.getConn().createStatement().executeQuery(query);
-				  while (resultSet.next()) {
-		                String mail2 = resultSet.getString("mail");
-		                Listmedicines.add(mail2);
-		            }
+
+				JSONArray jsonArray = new JSONArray();
+				while (resultSet.next()) {
+					Medicine medicine = new Medicine();
+					medicine.load(resultSet.getInt("id"));
+					JSONObject json = new JSONObject(medicine);
+					jsonArray.put(json);
+				}
+
+				response.setContentType("application/json");
+				PrintWriter out = response.getWriter();
+
+				// Escribir el JSON en el PrintWriter de la respuesta
+				out.print(jsonArray.toString());
+				out.flush();
+
+				// Cerrar la conexión a la base de datos
+				db.close();
+
+				// Aquí puedes realizar cualquier otra acción deseada con el JSONArray generado
+				// por ejemplo, escribirlo en un archivo, enviarlo a través de una API, etc.
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-
 	}
+
 }
