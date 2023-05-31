@@ -1,5 +1,3 @@
-
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,45 +7,48 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-/**
- * Servlet implementation class ServePatients
- */
 
+@WebServlet("/ServePatients")
 public class ServePatients extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String mail = request.getParameter("mail");
+        String mail = request.getParameter("email");
         String session = request.getParameter("session");
         ConnectionDB db = new ConnectionDB();
         Doctor doctor = new Doctor();
         boolean logged = doctor.isLogged(mail, session);
+
         if (logged) {
             try {
                 db.connectar();
-                String query = "SELECT * FROM patients";
+                String query = "SELECT * FROM patient";
                 ResultSet resultSet = db.getConn().createStatement().executeQuery(query);
 
-                JSONArray jsonArray = new JSONArray();
+                List<JSONObject> jsonList = new ArrayList<>();
                 while (resultSet.next()) {
                     String patientEmail = resultSet.getString("mail");
 
                     JSONObject json = new JSONObject();
                     json.put("mail", patientEmail);
-                    jsonArray.put(json);
+                    jsonList.add(json);
+                    System.out.println("The JSON mail: " + json.toString());
                 }
                 db.close();
 
+                JSONArray jsonArray = new JSONArray(jsonList);
 
-                // Configurar la respuesta como JSON
+                // Configure the response as JSON
                 response.setContentType("application/json");
-                PrintWriter out = response.getWriter();
-                out.print(jsonArray.toString());
-                out.flush();
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().append(jsonArray.toString());
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }

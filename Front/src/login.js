@@ -8,7 +8,7 @@ function send() {
   // Generar el hash de la contraseña
   //const hashedPassword = bcrypt.hashSync(pass, 9);
 
-  http.open("GET", "http://localhost:3000/Back/Login?email=" + email + "&pass=" + pass, true); 
+  http.open("GET", "http://localhost:3000/Farmaciaa/Login?email=" + email + "&pass=" + pass, true); 
 
 
   http.onreadystatechange = function () {

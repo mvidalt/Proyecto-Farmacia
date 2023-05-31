@@ -26,7 +26,7 @@ public class ServeMedicines extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String mail = request.getParameter("mail");
+		String mail = request.getParameter("email");
 		String session = request.getParameter("session");
 		ConnectionDB db = new ConnectionDB();
 		Doctor doctor = new Doctor();
@@ -45,14 +45,16 @@ public class ServeMedicines extends HttpServlet {
 					medicine.load(resultSet.getInt("id"));
 					JSONObject json = new JSONObject(medicine);
 					jsonArray.put(json);
+                    System.out.println("The JSON medicine: " + json.toString());
+
 				}
 
-				response.setContentType("application/json");
-				PrintWriter out = response.getWriter();
+
 
 				// Escribir el JSON en el PrintWriter de la respuesta
-				out.print(jsonArray.toString());
-				out.flush();
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().append(jsonArray.toString());
 
 				// Cerrar la conexión a la base de datos
 				db.close();

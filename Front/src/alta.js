@@ -2,13 +2,45 @@ function getPatiens() {
     var email = sessionStorage.getItem('email');
     var session = sessionStorage.getItem('session');
     var http = new XMLHttpRequest();
-    http.open("GET", "http://localhost:3000/Back/ServePatients?email=" + email + "&session=" + session, true);
+    http.open("GET", "http://localhost:3000/Farmaciaa/ServePatients?email=" + email + "&session=" + session, true);
 
     http.onreadystatechange = function () {
         if (http.readyState === XMLHttpRequest.DONE) {
             if (http.status === 200) {
-                //Esperando a saber que es la respuesta del servidor
-                var response = http.responseText;
+                var responseData = http.responseText;
+
+               // Parse the response as JSON
+                var parsedResponse;
+                try {
+                parsedResponse = JSON.parse(responseData);
+                } catch (error) {
+                console.error("Error parsing JSON response:", error);
+                }
+
+                // Get the select element by its ID
+                var selectElement = document.getElementById("patientsSelect");
+
+                // Clear any existing options
+                selectElement.innerHTML = '';
+
+                // Check if the parsed response is an array
+                if (Array.isArray(parsedResponse)) {
+                // Iterate over the JSON data and create options
+                parsedResponse.forEach(function(item) {
+                    // Create an option element
+                    var option = document.createElement("option");
+                    
+                    // Set the value and text content of the option using the email
+                    option.value = item.mail;
+                    option.textContent = item.mail;
+                    
+                    // Append the option to the select element
+                    selectElement.appendChild(option);
+                });
+                } else {
+                console.error("Invalid response format. Expected an array.");
+                }
+
             } else {
                 console.error('Error en la petición al backend:', http.status);
             }
@@ -24,13 +56,44 @@ function getMedicines() {
     var session = sessionStorage.getItem('session');
 
     var http = new XMLHttpRequest();
-    http.open("GET", "http://localhost:3000/Back/ServeMedicines?email=" + email + "&session=" + session, true);
+    http.open("GET", "http://localhost:3000/Farmaciaa/ServeMedicines?email=" + email + "&session=" + session, true);
 
     http.onreadystatechange = function () {
         if (http.readyState === XMLHttpRequest.DONE) {
             if (http.status === 200) {
-                //Esperando a saber que es la respuesta del servidor
-                var response = http.responseText;
+                
+                var responseData = http.responseText;
+                // Parse the response as JSON
+                var parsedResponse;
+                try {
+                parsedResponse = JSON.parse(responseData);
+                } catch (error) {
+                console.error("Error parsing JSON response:", error);
+                }
+
+                // Get the select element by its ID
+                var selectElement = document.getElementById("medicinesSelect");
+
+                // Clear any existing options
+                selectElement.innerHTML = '';
+
+                // Check if the parsed response is an array
+                if (Array.isArray(parsedResponse)) {
+                // Iterate over the JSON data and create options
+                parsedResponse.forEach(function(item) {
+                    // Create an option element
+                    var option = document.createElement("option");
+                    
+                    // Set the value and text content of the option using the medicine name
+                    option.value = item.id;
+                    option.textContent = item.name;
+                    
+                    // Append the option to the select element
+                    selectElement.appendChild(option);
+                });
+                } else {
+                console.error("Invalid response format. Expected an array.");
+                }
             } else {
                 console.error('Error en la petició al backend:', http.status);
             }
@@ -59,7 +122,7 @@ function enviar() {
     };
 
     var http = new XMLHttpRequest();
-    http.open("POST", "http://localhost:3000/DAMTomcat/Release", true);
+    http.open("POST", "http://localhost:3000/Farmaciaa/Release", true);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 
