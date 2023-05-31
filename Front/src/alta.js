@@ -104,42 +104,52 @@ function getMedicines() {
 }
 
 function enviar() {
+
     var email = sessionStorage.getItem('email');
     var session = sessionStorage.getItem('session');
+    let mailP = document.getElementById("patientsSelect").value;
+    let idXip = document.getElementById("xipIdInput").value;
+    let idMed = document.getElementById("medicinesSelect").value;
+    let dateLimit = document.getElementById("dateInput").value;
 
-    var idXip = "...;"; // Valor de la idXip
-    var mailP = "...;;" // Valor del mailP
-    var idMed = "...;"; // Valor de la idMed
-    var dateLimit = "...;"; // Valor de la dateLimit
+    // Crear un objeto de fecha actual
+    var fechaActual = new Date();
 
-    var data = {
-        email: email,
-        session: session,
-        idXip: idXip,
-        mailP: mailP,
-        idMed: idMed,
-        dateLimit: dateLimit
-    };
+    // Obtener los componentes de la fecha
+    var anio = fechaActual.getFullYear();
+    var mes = ('0' + (fechaActual.getMonth() + 1)).slice(-2); // Los meses en JavaScript son indexados desde 0, se agrega '0' y se utiliza slice para obtener los dos dígitos
+    var dia = ('0' + fechaActual.getDate()).slice(-2); // Se agrega '0' y se utiliza slice para obtener los dos dígitos
 
-    var http = new XMLHttpRequest();
-    http.open("POST", "http://localhost:3000/Farmaciaa/Release", true);
-    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    // Construir la fecha en el formato deseado (por ejemplo, AAAA-MM-DD)
+    var fechaFormateada = anio + '-' + mes + '-' + dia;
 
-
-    http.onreadystatechange = function () {
-        if (http.readyState === XMLHttpRequest.DONE) {
-            if (http.status === 200) {
-                var response = http.responseText;
-            } else {
-                console.error('Error en la petició al backend:', http.status);
+    if (dateLimit < fechaFormateada){
+        document.getElementById('error').innerHTML = 'La fecha introducida no es correcta';
+        console.log("prueba")
+    }
+    else{
+        var http = new XMLHttpRequest();
+        http.open("POST", "http://localhost:3000/Farmaciaa/Release", true);
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    
+    
+        http.onreadystatechange = function () {
+            if (http.readyState === XMLHttpRequest.DONE) {
+                if (http.status === 200) {
+                    
+                } else {
+                    console.error('Error en la petició al backend:', http.status);
+                }
             }
-        }
-    };
+        };
+    
+        http.send("email=" + email + "&session=" + session + "&mailP=" + mailP + "&idXip=" + idXip + "&idMed=" + idMed + "&dateLimit=" + dateLimit);
+    
+        window.location.href = 'alta.html';
+        
+    }
 
-    var jsonData = JSON.stringify(data);
-
-
-    http.send(jsonData);
+ 
 
 
 }

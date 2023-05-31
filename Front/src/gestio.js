@@ -14,8 +14,18 @@ function getTable() {
     http.onreadystatechange = function () {
         if (http.readyState === XMLHttpRequest.DONE) {
             if (http.status === 200) {
-                var response = http.responseText;
-                document.getElementById('table').innerHTML = response;
+                var response = http.responseText.trim(); // Eliminar espacios en blanco al inicio y al final
+                if (response.toLowerCase() === 'access denied') { // Comparar sin importar mayúsculas y minúsculas
+                    document.getElementById('table').innerHTML = response;
+                    document.getElementById('logout').innerText = 'Volver a login'; // Cambiar el texto del botón
+                    document.getElementById('alta').style.display = 'none';
+                  setTimeout(function() {
+                    window.location.href = 'login.html';
+                  }, 10000); // 10 segundos (10000 milisegundos)
+                  
+                } else {
+                  document.getElementById('table').innerHTML = response;
+                }
             } else {
                 console.error('Error en la petición al backend:', http.status);
             }

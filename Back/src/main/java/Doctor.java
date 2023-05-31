@@ -128,7 +128,7 @@ public class Doctor extends Person {
         	System.out.print(mail);
 	        if (resultSet.next()) {
 	            // Sesión válida, los datos se han cargado correctamente
-	        	login(getMail(),getPass());
+
 
 	            return true;
 	        } else {

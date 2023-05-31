@@ -38,7 +38,6 @@ public class ServePatients extends HttpServlet {
                     JSONObject json = new JSONObject();
                     json.put("mail", patientEmail);
                     jsonList.add(json);
-                    System.out.println("The JSON mail: " + json.toString());
                 }
                 db.close();
 

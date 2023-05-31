@@ -45,7 +45,6 @@ public class ServeMedicines extends HttpServlet {
 					medicine.load(resultSet.getInt("id"));
 					JSONObject json = new JSONObject(medicine);
 					jsonArray.put(json);
-                    System.out.println("The JSON medicine: " + json.toString());
 
 				}
 
