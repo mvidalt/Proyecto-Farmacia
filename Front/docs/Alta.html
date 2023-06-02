@@ -11,21 +11,23 @@
 </head>
 
 <body onload="getPatiens(); getMedicines()">
-    <h1>Alta</h1>
-    <form id="altaForm" onsubmit="return false;">
-        <input type="text" id="xipIdInput" placeholder="ID Físico del Xip" required>
-        <select id="patientsSelect" required>
-            <option value="" disabled selected>Seleccione un paciente</option>
-        </select>
-        <select id="medicinesSelect" required>
-            <option value="" disabled selected>Seleccione un medicamento</option>
-        </select>
-        <input type="date" id="dateInput" required>
-        <button type="submit" onclick="enviar()">Enviar</button>
-        <p id="error"></p>
-    </form>
-    <button onclick="window.location.href = 'Gestio.html';">Volver a Gestion</button>
-    
+    <div>
+        <h1>Alta</h1>
+        <form id="altaForm" onsubmit="return false;">
+            <input type="text" id="xipIdInput" placeholder="ID Físico del Xip" maxlength="9" required>
+            <select id="patientsSelect" required>
+                <option value="" disabled selected>Seleccione un paciente</option>
+            </select>
+            <select id="medicinesSelect" required>
+                <option value="" disabled selected>Seleccione un medicamento</option>
+            </select>
+            <input type="date" id="dateInput" required>
+            <button type="submit" onclick="enviar()">Enviar</button>
+            <button onclick="window.location.href = 'Gestio.html';">Volver a Gestion</button>
+            <p id="error"></p>
+        </form>
+        
+    </div>
 </body>
 
 </html>

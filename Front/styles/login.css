@@ -2,10 +2,15 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
+  background-image: url(../img/v870-tang-41.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 h1 {
   text-align: center;
+  color: #336699;
 }
 
 form {
@@ -15,16 +20,50 @@ form {
   margin: 0 auto;
 }
 
+.container {
+  background-image: url(ruta-de-la-imagen.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* Otros estilos del contenedor */
+}
+
+input {
+  border: 1px solid #ccc;
+  outline: none;
+  padding: 10px;
+}
+
+label[name="pass"] {
+  margin-top: 5px;
+}
+
+button[name="but"] {
+  margin-top: 10px;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  background-color:  #adc2ca; 
+  border: 1px solid #333; 
+}
+
 input[type="email"],
 input[type="password"] {
-  margin-bottom: 10px;
-  padding: 5px;
+  margin-bottom: 5px;
 }
 
 button {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #74d6cb;
   color: #fff;
   border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease-out;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #336699;
   cursor: pointer;
 }
