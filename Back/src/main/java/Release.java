@@ -55,6 +55,7 @@ public class Release extends HttpServlet {
 				db.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				response.getWriter().write("error");
 			}
 		}
 	}

@@ -125,7 +125,6 @@ function enviar() {
 
     if (dateLimit < fechaFormateada){
         document.getElementById('error').innerHTML = 'La fecha introducida no es correcta';
-        console.log("prueba")
     }
     else{
         var http = new XMLHttpRequest();
@@ -136,6 +135,11 @@ function enviar() {
         http.onreadystatechange = function () {
             if (http.readyState === XMLHttpRequest.DONE) {
                 if (http.status === 200) {
+                    response = http.responseText;
+                    console.log(response);
+                    if (response === "error"){
+                        document.getElementById('error').innerHTML = 'ID repetido';
+                    }
                     
                 } else {
                     console.error('Error en la petició al backend:', http.status);
@@ -145,7 +149,7 @@ function enviar() {
     
         http.send("email=" + email + "&session=" + session + "&mailP=" + mailP + "&idXip=" + idXip + "&idMed=" + idMed + "&dateLimit=" + dateLimit);
     
-        window.location.href = 'alta.html';
+
         
     }
 
