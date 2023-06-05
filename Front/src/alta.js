@@ -9,7 +9,6 @@ function getPatiens() {
             if (http.status === 200) {
                 var responseData = http.responseText;
 
-               // Parse the response as JSON
                 var parsedResponse;
                 try {
                 parsedResponse = JSON.parse(responseData);
@@ -17,24 +16,19 @@ function getPatiens() {
                 console.error("Error parsing JSON response:", error);
                 }
 
-                // Get the select element by its ID
                 var selectElement = document.getElementById("patientsSelect");
 
-                // Clear any existing options
                 selectElement.innerHTML = '';
 
-                // Check if the parsed response is an array
                 if (Array.isArray(parsedResponse)) {
-                // Iterate over the JSON data and create options
-                parsedResponse.forEach(function(item) {
-                    // Create an option element
+
+                    parsedResponse.forEach(function(item) {
+
                     var option = document.createElement("option");
                     
-                    // Set the value and text content of the option using the email
                     option.value = item.mail;
                     option.textContent = item.mail;
                     
-                    // Append the option to the select element
                     selectElement.appendChild(option);
                 });
                 } else {
@@ -63,7 +57,6 @@ function getMedicines() {
             if (http.status === 200) {
                 
                 var responseData = http.responseText;
-                // Parse the response as JSON
                 var parsedResponse;
                 try {
                 parsedResponse = JSON.parse(responseData);
@@ -71,24 +64,17 @@ function getMedicines() {
                 console.error("Error parsing JSON response:", error);
                 }
 
-                // Get the select element by its ID
                 var selectElement = document.getElementById("medicinesSelect");
 
-                // Clear any existing options
                 selectElement.innerHTML = '';
 
-                // Check if the parsed response is an array
                 if (Array.isArray(parsedResponse)) {
-                // Iterate over the JSON data and create options
                 parsedResponse.forEach(function(item) {
-                    // Create an option element
                     var option = document.createElement("option");
                     
-                    // Set the value and text content of the option using the medicine name
                     option.value = item.id;
                     option.textContent = item.name;
                     
-                    // Append the option to the select element
                     selectElement.appendChild(option);
                 });
                 } else {
@@ -112,15 +98,13 @@ function enviar() {
     let idMed = document.getElementById("medicinesSelect").value;
     let dateLimit = document.getElementById("dateInput").value;
 
-    // Crear un objeto de fecha actual
     var fechaActual = new Date();
 
     // Obtener los componentes de la fecha
     var anio = fechaActual.getFullYear();
-    var mes = ('0' + (fechaActual.getMonth() + 1)).slice(-2); // Los meses en JavaScript son indexados desde 0, se agrega '0' y se utiliza slice para obtener los dos dígitos
-    var dia = ('0' + fechaActual.getDate()).slice(-2); // Se agrega '0' y se utiliza slice para obtener los dos dígitos
+    var mes = ('0' + (fechaActual.getMonth() + 1)).slice(-2);
+    var dia = ('0' + fechaActual.getDate()).slice(-2); 
 
-    // Construir la fecha en el formato deseado (por ejemplo, AAAA-MM-DD)
     var fechaFormateada = anio + '-' + mes + '-' + dia;
 
     if (dateLimit < fechaFormateada){

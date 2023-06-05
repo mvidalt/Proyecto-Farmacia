@@ -1,5 +1,4 @@
 function logOut() {
-    // Borrar el email y la sesión del sessionStorage
     sessionStorage.removeItem('email');
     sessionStorage.removeItem('session');
     
@@ -14,14 +13,14 @@ function getTable() {
     http.onreadystatechange = function () {
         if (http.readyState === XMLHttpRequest.DONE) {
             if (http.status === 200) {
-                var response = http.responseText.trim(); // Eliminar espacios en blanco al inicio y al final
-                if (response.toLowerCase() === 'access denied') { // Comparar sin importar mayúsculas y minúsculas
+                var response = http.responseText.trim(); 
+                if (response.toLowerCase() === 'access denied') { 
                     document.getElementById('table').innerHTML = response;
-                    document.getElementById('logout').innerText = 'Volver a login'; // Cambiar el texto del botón
+                    document.getElementById('logout').innerText = 'Volver a login';
                     document.getElementById('alta').style.display = 'none';
                   setTimeout(function() {
                     window.location.href = 'login.html';
-                  }, 10000); // 10 segundos (10000 milisegundos)
+                  }, 10000); 
                   
                 } else {
                   document.getElementById('table').innerHTML = response;
