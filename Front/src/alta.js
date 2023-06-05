@@ -139,6 +139,11 @@ function enviar() {
                     console.log(response);
                     if (response === "error"){
                         document.getElementById('error').innerHTML = 'ID repetido';
+                    }else{
+                        document.getElementById('error').innerHTML = 'Xip introducido correctamente'
+                        document.getElementById('error').style.color = 'black';
+                        document.getElementById("xipIdInput").value = '';
+                        document.getElementById("dateInput").value = '';
                     }
                     
                 } else {

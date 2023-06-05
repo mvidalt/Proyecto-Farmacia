@@ -21,7 +21,6 @@ form {
 }
 
 .container {
-  background-image: url(ruta-de-la-imagen.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   /* Otros estilos del contenedor */
